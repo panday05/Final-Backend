@@ -10,7 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -23,10 +25,11 @@ public class Worker {
 	private int workerId;
 	private String name;
 	@NotEmpty(message = "email is required")
+	@Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-0.-]+$")
 	private String email;
 	@NotEmpty(message = "password is required")
 	private String password;
-	private int phoneNumber;
+	private Long phoneNumber;
 	private String address;
 	private Long adharNumber;
 	private String services;
@@ -38,7 +41,7 @@ public class Worker {
 	private Service service;
 
 public Worker(int workerId, String name, @NotEmpty(message = "email is required") String email,
-		@NotEmpty(message = "password is required") String password, int phoneNumber, String address, Long adharNumber,
+		@NotEmpty(message = "password is required") String password, Long phoneNumber, String address, Long adharNumber,
 		String services, WorkerLogin login, Service service) {
 	super();
 	this.workerId = workerId;
@@ -96,11 +99,11 @@ public void setPassword(String password) {
 	this.password = password;
 }
 
-public int getPhoneNumber() {
+public Long getPhoneNumber() {
 	return phoneNumber;
 }
 
-public void setPhoneNumber(int phoneNumber) {
+public void setPhoneNumber(Long phoneNumber) {
 	this.phoneNumber = phoneNumber;
 }
 

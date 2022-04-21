@@ -2,6 +2,8 @@ package com.workersforyou.workersforyou.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -36,13 +38,13 @@ public class UserController {
 	}
 
 	@PostMapping("/user")
-	public User addUser(@RequestBody User user) {
+	public User addUser(@Valid @RequestBody User user,BindingResult result) {
 		{
 			try {
 				if (userservice.findUserByemail(user.getEmail()) != null) {
 					if (userservice.validateUser(user)) {
 						System.err
-								.println("Debug: Login Succeeded as JobSeeker. Redirecting to JobSeeker Home page...");
+								.println("Debug: Login Succeeded as user. Redirecting to JobSeeker Home page...");
 						return user;
 					}
 				}

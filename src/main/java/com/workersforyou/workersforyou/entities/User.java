@@ -4,17 +4,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.annotations.ManyToAny;
 
 @Entity
 @Table(name = "user")
@@ -25,10 +20,11 @@ public class User {
 	private int id;
 	private String name;
 	@NotEmpty(message = "email is required")
+	@Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-0.-]+$")
 	private String email;
 	@NotEmpty(message = "password is required")
 	private String password;
-	private int phoneNo;
+	private Long phoneNo;
 	private String address;
 
 //	@OneToMany
@@ -42,7 +38,7 @@ public class User {
 //	private Payment payment;
 
 	public User(int id, String name, @NotEmpty(message = "email is required") String email,
-			@NotEmpty(message = "password is required") String password, int phoneNo, String address,
+			@NotEmpty(message = "password is required") String password, Long phoneNo, String address,
 			List<Worker> worker, UserLogin login, Payment payment) {
 		super();
 		this.id = id;
@@ -93,11 +89,11 @@ public class User {
 		this.password = password;
 	}
 
-	public int getPhoneNo() {
+	public Long getPhoneNo() {
 		return phoneNo;
 	}
 
-	public void setPhoneNo(int phoneNo) {
+	public void setPhoneNo(Long phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 
